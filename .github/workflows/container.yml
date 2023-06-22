@@ -1,16 +1,9 @@
 name: Container
 
-on:
-  schedule:
-    - cron: '22 2 */6 * *' # every 6 days to avoid gha cache being evicted
+on:  
   push:
-    paths-ignore:
-    - '.devcontainer/**'
-    - 'examples/**'
-    - 'lib/**'
-    - 'man/**'
-    - 'priv/**'
-    - '**.md'
+    tags:
+      - "*"
 
 env:
   REGISTRY: ghcr.io
