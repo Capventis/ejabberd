@@ -1256,7 +1256,12 @@ decode_body(Data, Size, Type, XUser) ->
     end.
 
 update_cdata([AuthzId, Username, _Password], XUser) ->
-    erlang:iolist_to_binary([AuthzId, <<0>>, Username, <<0>>, XUser]).
+    try 
+    	erlang:iolist_to_binary([AuthzId, <<0>>, Username, <<0>>, XUser])
+    catch
+	_:_Reason ->
+            erlang:iolist_to_binary([AuthzId, <<0>>, Username, <<0>>, <<>>])
+    end.
 
 parse(S) ->
     binary:split(S, <<0>>, [global]).
